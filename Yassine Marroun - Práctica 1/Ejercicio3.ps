@@ -1,0 +1,65 @@
+%Informática Gráfica - Práctica 1
+%Yassine Marroun Nettah
+
+%3. Una cosa a tener en cuenta es que PostScript utiliza los ángulos
+%en medida sexagesimal tanto como parámetros como resultado
+%en las fórmulas trigonométricas. Calcula en PostScript el seno,
+%coseno y tangente de pi/4, 3pi/2.
+28.35 28.35 scale
+
+/Arial findfont
+0.8 scalefont setfont
+
+newpath
+1.5 26.7 moveto
+(seno de pi/4 = ) show
+
+45 sin
+(            ) cvs show
+
+
+newpath
+1.5 24.7 moveto
+(coseno de pi/4 = ) show
+
+45 cos
+(            ) cvs show
+
+
+newpath
+1.5 22.7 moveto
+(tangente de pi/4 = ) show
+/a 45 sin def
+/b 45 cos def
+a b div
+(            ) cvs show
+
+
+
+newpath
+1.5 19.7 moveto
+(seno de 3pi/2 = ) show
+
+270 sin
+(            ) cvs show
+
+
+newpath
+1.5 17.7 moveto
+(coseno de 3pi/2 = ) show
+
+270 cos
+(            ) cvs show
+
+
+
+newpath
+1.5 15.7 moveto
+(tangente de 3pi/2 = Error) show
+%/a 270 sin def
+%/b 270 cos def
+%a b div
+%(            ) cvs show
+
+gsave fill grestore stroke
+showpage

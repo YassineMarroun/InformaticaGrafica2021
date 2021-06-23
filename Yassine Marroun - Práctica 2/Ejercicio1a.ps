@@ -1,0 +1,90 @@
+%Informática Gráfica - Práctica 2
+%Yassine Marroun Nettah
+
+%1. EL PROBLEMA DEL DIBUJO DE LAS RECTAS FINITAS
+
+%• Trabajando en el sistema de coordenadas por defecto de PostScript
+%dibuja la recta 7x − 14y − 500 = 0
+
+%• Ahora cambia la escala para trabajar en cm. Haz una traslación del origen a (5, 10).
+%Dibuja a continuación las siguientes rectas:
+
+%a) Ejes de coordenadas en color negro
+%b) x + y − 10 = 0 en rojo
+%c) x = y en azul
+%d) −5x + 2y = 10 en verde
+%e) x + 2y = 1 en otro color distinto a los anteriores
+
+
+%Procedimiento que encuentra el primer (P) y el último (Q) punto de la recta.
+/segment-page {1 dict begin
+aload pop
+/C exch def
+/B exch def
+/A exch def
+
+A abs B abs le
+{
+    /xleft 0 def
+    /xright 597.6 def
+    /yleft C A xleft mul add B div neg def
+    /yright C A xright mul add B div neg def
+    [xleft yleft][xright yright]
+} {
+    /yleft 0 def
+    /yright 842.4 def
+    /xleft C B yleft mul add A div neg def
+    /xright C B yright mul add A div neg def
+    [xleft yleft][xright yright]
+} ifelse
+end} def
+
+
+%Procedimiento que dibuja el segmento de P a Q
+/mkline {1 dict begin
+aload pop
+/C exch def
+/B exch def
+/A exch def
+
+/T
+matrix defaultmatrix
+matrix currentmatrix
+matrix invertmatrix
+matrix concatmatrix
+def
+stack
+[
+    A T 0 get mul
+    B T 1 get mul add
+
+    A T 2 get mul
+    B T 3 get mul add
+
+    T 4 get A mul
+    T 5 get B mul add
+    C add
+]
+
+segment-page
+aload pop T transform moveto
+aload pop T transform lineto
+end} def
+
+
+newpath
+
+/Arial findfont
+0.5 scalefont setfont
+
+%• 7x - 14y − 500 = 0
+[7 -14 -500] mkline
+stroke
+
+28.35 28.35 scale
+1 25 div setlinewidth
+
+5 5 moveto(7x - 14y - 500 = 0) show
+
+closepath
+showpage

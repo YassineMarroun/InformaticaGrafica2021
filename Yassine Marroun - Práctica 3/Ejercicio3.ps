@@ -1,0 +1,77 @@
+%Informática Gráfica - Práctica 3
+%Yassine Marroun Nettah
+
+%3. Construye un procedimiento para dibujar polígonos regulares estrellados.
+
+%Procedimiento para dibujar el polígono.
+/make-polygon {3 dict begin
+/a exch def
+/n a length def
+n 1 gt {
+    a 0 get 0 get
+    a 0 get 1 get
+    moveto
+    1 1 n 1 sub {
+        /i exch def
+        a i get 0 get
+        a i get 1 get
+        lineto
+    } for
+} if
+end} def
+
+%Procedimiento que teniendo como argumentos el diametro y el número de vertices,
+%genera un array con los puntos a dibujar.
+/star-regular-polygon{6 dict begin
+/D exch def
+/V exch def
+
+V 5 ge {
+    /R D 2 div def
+    /movements V array def
+    /S 1 def
+    /position 1 def
+    movements 0 [R 0] put
+
+     V 3 mod 0 ne{
+        /S 3 def
+    }if
+    V 2 mod 0 ne{
+        /S 2 def
+    }if
+
+    S 1 ne {
+        newpath
+        /angle 360 V div S mul def
+        V 1 sub {
+        movements position [angle cos R mul angle sin R mul] put
+        /angle angle 360 V div S mul add def
+        /position position 1 add def
+    }repeat
+    movements make-polygon
+    closepath
+    }if
+}if
+end } def
+
+
+/Arial findfont
+0.5 scalefont setfont
+
+28.35 28.35 scale
+1 25 div setlinewidth
+
+6 24.7 translate
+-3 2.5 moveto(Poligono regular estrellado de 5 vertices) show
+5 3 star-regular-polygon
+stroke
+
+0 -8 translate
+-3 2.5 moveto(Poligono regular estrellado de 7 vertices) show
+7 3 star-regular-polygon
+stroke
+
+0 -8 translate
+-3 2.5 moveto(Poligono regular estrellado de 8 vertices) show
+8 3 star-regular-polygon
+stroke

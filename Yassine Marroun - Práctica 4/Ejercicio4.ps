@@ -1,0 +1,40 @@
+%Informática Gráfica - Práctica 4
+%Yassine Marroun Nettah
+
+%4.	Implementa los procedimientos /path-display y /therisacurrentpoint
+%de la sección 6.11 y pruébalo con algún ejemplo.
+
+/path-display {
+{ [ 3 1 roll (moveto) ] == }
+{ [ 3 1 roll (lineto) ] == }
+{ [ 7 1 roll (curveto) ] == }
+{ [ (closepath) ] == }
+pathforall
+} def
+
+/thereisacurrentpoint{
+false
+{ 3 { pop } repeat true exit }
+{ 3 { pop } repeat true exit }
+{ 7 { pop } repeat true exit }
+{ true exit }
+pathforall
+} def
+
+
+/Arial findfont
+0.8 scalefont setfont
+
+28.35 28.35 scale
+1 25 div setlinewidth
+
+newpath
+path-display
+thereisacurrentpoint
+2 27 moveto(El path esta abierto por lo que,) show
+2 26 moveto(la funcion thereisacurrentpoint devuelve: ) show
+(                   )cvs show
+gsave
+fill
+grestore
+stroke

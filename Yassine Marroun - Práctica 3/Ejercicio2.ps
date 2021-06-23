@@ -1,0 +1,57 @@
+%Informática Gráfica - Práctica 3
+%Yassine Marroun Nettah
+
+%2. Utilizando la idea de la sección 5.4 dibuja las siguientes funciones:
+%a) f(x) = x^3 − 4x
+%b) f(x) = cos(x)
+%¡Cuidado! Recuerda que el argumento del operador cos en PostScript son ángulos en grados.
+/Arial findfont
+0.5 scalefont setfont
+
+28.35 28.35 scale
+1 25 div setlinewidth
+10.5 14.85 translate
+%Eje de coordenadas
+newpath
+-10.5 0 moveto  %Eje X
+10.5 0 lineto
+0 -14.85 moveto %Eje Y
+0 14.85 lineto
+stroke closepath
+
+%a) f(x) = x^3 − 4x
+/N 100 def
+/x -4 def
+/dx 8 N div def
+/f {
+  dup dup dup mul mul exch 4 mul neg add
+} def
+newpath
+1 0 0 setrgbcolor
+x dup f moveto
+N {
+  /x x dx add def
+  x dup f lineto
+} repeat
+stroke
+
+%b) f(x) = cos(x)
+/N 100 def
+/x -8 def
+/dx 16 N div def
+newpath
+0 0 1 setrgbcolor
+x x 90 mul cos moveto
+
+N {
+  /x x dx add def
+  x x 90 mul cos lineto
+} repeat
+stroke
+
+newpath
+1 0 0 setrgbcolor
+4 4 moveto(Funcion f(x) = x^3 - 4x) show
+0 0 1 setrgbcolor
+4 3.2 moveto(Funcion f(x) = cos(x)) show
+closepath

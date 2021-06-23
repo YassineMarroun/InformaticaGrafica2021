@@ -1,0 +1,38 @@
+%Informática Gráfica - Práctica 3
+%Yassine Marroun Nettah
+
+%4. Implementa un procedimiento para el dibujo de polígonos
+%dados la lista de puntos que lo forma: [P1, P2, ···, Pn]
+
+%Procedimiento para dibujar el polígono
+/make-polygon {3 dict begin
+/a exch def
+/n a length def
+n 1 gt {
+    a 0 get 0 get
+    a 0 get 1 get
+    moveto
+    1 1 n 1 sub {
+        /i exch def
+        a i get 0 get
+        a i get 1 get
+        lineto
+    } for
+} if
+end} def
+
+%Ejemplo
+/Arial findfont
+0.5 scalefont setfont
+
+28.35 28.35 scale
+1 25 div setlinewidth
+
+
+newpath
+5 24.7 translate
+-1 2 moveto(Poligono de 6 lados) show
+[[1 0][60 cos 60 sin][120 cos 120 sin]
+[180 cos 180 sin][240 cos 240 sin][300 cos 300 sin]] make-polygon
+closepath
+stroke

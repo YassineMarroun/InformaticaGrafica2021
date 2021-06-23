@@ -1,0 +1,76 @@
+%Informática Gráfica - Práctica 4
+%Yassine Marroun Nettah
+
+%(Ejercicios 7.1 y 7.2 ) Modificar el procedimiento f de la sección 7.1
+%para que dibuje las siguientes gráficas:
+
+/grafica {load
+    /f exch def
+    1 dict begin
+    /N exch def
+    /x1 exch def
+    /x0 exch def
+    /h x1 x0 sub N div def
+    /x x0 def
+    /F x f def
+    /y F 0 get def
+    /s F 1 get def
+    x y moveto
+    N {
+        x h 3 div add
+        y h 3 div s mul add
+        /x x h add def
+        /F x f def
+        /y F 0 get def
+        /s F 1 get def
+        x h 3 div sub
+        y h 3 div s mul sub
+        x y
+        curveto
+    } repeat
+end} def
+
+% b) y = 3 · cos(x) entre −2π y 2π.
+/apartadoB { 2 dict begin
+/x exch def
+[
+    90 x mul cos 3 mul     % y = 3·cos(x)
+    90 x mul sin -270 mul    % y´= -3·seno(x)
+]
+end } def
+
+/Arial findfont
+0.8 scalefont setfont
+
+28.35 28.35 scale
+1 25 div setlinewidth
+10.5 14.85 translate
+
+%Eje de coordenadas
+newpath
+-10.5 0 moveto  %Eje X
+10.5 0 lineto
+0 -14.85 moveto %Eje Y
+0 14.85 lineto
+stroke closepath
+
+% Marcadores
+newpath
+-5 0.2 moveto
+-5 -0.2 lineto
+5 0.2 moveto
+5 -0.2 lineto
+0.2 -5 moveto
+-0.2 -5 lineto
+0.2 5 moveto
+-0.2 5 lineto
+stroke
+closepath
+
+% b) y = 3 · cos(x) entre −2π y 2π.
+newpath
+0 0 1 setrgbcolor
+-6.283 6.283 4200 /apartadoB grafica
+5.5 1.6 moveto (y = 3cos(x)) show
+stroke
+closepath

@@ -1,0 +1,43 @@
+%Informática Gráfica - Práctica 3
+%Yassine Marroun Nettah
+
+%1. Realiza un procedimiento poligon que dibuje un polígono regular
+%cuyos parámetros sean el número de lados y el diámetro de la circunferencia circunscrita
+%(tamaño polígono).
+
+%Procedimiento que dibuja un polígono regular habiendo recibido como parámetros
+%el número de lados y el diámetro de la circunferencia circunscrita.
+/poligon {4 dict begin
+aload pop
+/L exch def
+/D exch def
+/A 360 L div def
+/R D 2 div def
+R 0 moveto
+
+L {
+A cos R mul A sin R mul lineto
+/A A 360 L div add def
+} repeat
+closepath
+end} def
+
+%Ejemplos
+28.35 28.35 scale
+1 25 div setlinewidth
+
+/Arial findfont
+0.5 scalefont setfont
+
+6 24.7 translate
+-3 2.5 moveto(Poligono de 5 lados y 3 centimetros de diametro) show
+[3 5]poligon
+
+0 -8 translate
+-3 3 moveto(Poligono de 6 lados y 4 centimetros de diametro) show
+[4 6]poligon
+
+0 -8 translate
+-3 3.5 moveto(Poligono de 7 lados y 5 centimetros de diametro) show
+[5 7]poligon
+stroke

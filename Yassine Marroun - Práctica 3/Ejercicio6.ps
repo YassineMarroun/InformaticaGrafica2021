@@ -1,0 +1,88 @@
+%Informática Gráfica - Práctica 3
+%Yassine Marroun Nettah
+
+%6. Implementa el algoritmo Hodgman-Sutherlan tal como viene en la sección 5.6.
+
+%Procedimiento que calcula Ax + By + C dado [A B C] y [x y]
+/evaluate {
+    aload pop
+    5 1 roll
+    3 2 roll
+    mul
+    3 1 roll
+    mul
+    add add
+} def
+
+%Procedimiento que calcula el polígono truncado por Ax + By + C <= 0
+/hodgman-sutherland {4 dict begin
+/f exch def
+/p exch def
+/n p length def
+/P p n 1 sub get def
+/d P length 1 sub def
+/fP P aload pop f evaluate def
+[
+    p {
+        /Q exch def
+        /fQ Q aload pop f evaluate def
+        fP 0 le {
+            fQ 0 le {
+                Q
+            }{
+                fP 0 lt {
+                    /QP fQ fP sub def
+                        [
+                            fQ P 0 get mul fP Q 0 get mul sub QP div
+                            fQ P 1 get mul fP Q 1 get mul sub QP div
+                        ]
+                    } if
+                } ifelse
+            }{
+                fQ 0 le {
+                    fQ 0 lt {
+                        /QP fQ fP sub def
+                        [
+                            fQ P 0 get mul fP Q 0 get mul sub QP div
+                            fQ P 1 get mul fP Q 1 get mul sub QP div
+                        ]
+                    } if
+                    Q
+                } if
+            } ifelse
+            /P Q def
+           /fP fQ def
+        }forall
+    ]
+end} def
+
+%Procedimiento para dibujar el polígono
+/make-polygon {3 dict begin
+/a exch def
+/n a length def
+n 1 gt {
+    a 0 get 0 get
+    a 0 get 1 get
+    moveto
+    1 1 n 1 sub {
+        /i exch def
+        a i get 0 get
+        a i get 1 get
+        lineto
+    } for
+} if
+end} def
+
+%Ejemplo introduciendo como argumento un cuadrado cortado por la recta 3x + 2y
+/Arial findfont
+0.5 scalefont setfont
+
+28.35 28.35 scale
+1 25 div setlinewidth
+
+2 26.7 moveto(Cuadrado cortado por la recta 3x + 2y) show
+newpath
+6 21.7 translate
+[[-4 0][4 0][4 4][-4 4]][3 2 0] hodgman-sutherland make-polygon
+closepath
+stroke

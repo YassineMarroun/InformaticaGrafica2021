@@ -1,0 +1,63 @@
+%Informática Gráfica - Práctica 4
+%Yassine Marroun Nettah
+
+%2.	Dibuja distintas aproximaciones sucesivas de curvas Bézier a la gráfica
+%hasta que prácticamente no se distinga.
+
+/grafica {load
+    /f exch def
+    1 dict begin
+    /N exch def
+    /x1 exch def
+    /x0 exch def
+    /h x1 x0 sub N div def
+    /x x0 def
+    /F x f def
+    /y F 0 get def
+    /s F 1 get def
+    x y moveto
+    N {
+        x h 3 div add
+        y h 3 div s mul add
+        /x x h add def
+        /F x f def
+        /y F 0 get def
+        /s F 1 get def
+        x h 3 div sub
+        y h 3 div s mul sub
+        x y
+        curveto
+    } repeat
+end} def
+
+%• La cuádrica: y = x^4.
+/cuadrica {2 dict begin
+    /x exch def
+    [
+        x x mul x mul x mul %y = x^4
+        x x mul x mul 4 mul %y' = 4x^3.
+    ]
+end} def
+
+
+/Arial findfont
+0.8 scalefont setfont
+
+28.35 28.35 scale
+1 25 div setlinewidth
+10.5 14.85 translate
+
+%Eje de coordenadas
+newpath
+-10.5 0 moveto  %Eje X
+10.5 0 lineto
+0 -14.85 moveto %Eje Y
+0 14.85 lineto
+stroke closepath
+
+newpath
+0 1 0 setrgbcolor
+-4 4  10  /cuadrica grafica
+4 2 moveto (y = x^4) show
+stroke closepath
+showpage
